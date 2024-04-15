@@ -125,4 +125,15 @@ color_echo "Creating the crowsnest.conf file..."
 echo "$CROWSNEST_CONTENT" > "$CROWSNEST_FILE"
 color_echo "Config file created successfully"
 
+# Add mattaos service to "moonraker.asvc" if it is not already present
+MOONRAKER_ASVC_FILE="/home/${USER}/printer_data/moonraker.asvc"
+MOONRAKER_ASVC_CONTENT="mattaos"
+if [ ! -f "$MOONRAKER_ASVC_FILE" ]; then
+    if ! grep -q "$MOONRAKER_ASVC_CONTENT" "$MOONRAKER_ASVC_FILE"; then
+        color_echo "mattaos service not present in moonraker.asvc, adding it..."
+        echo "$MOONRAKER_ASVC_CONTENT" >> "$MOONRAKER_ASVC_FILE"
+        color_echo "moonraker.asvc updated successfully"
+    fi
+fi
+
 color_echo "Installation completed!"
